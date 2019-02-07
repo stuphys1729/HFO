@@ -118,7 +118,11 @@ def main(args):
       %(serverCommand + serverOptions)
     if not args.headless:
       monitorCommand = os.path.join(binary_dir, MONITOR_BIN)
-      monitorOptions = ' --connect --port=%i'%(server_port)
+      monitorOptions = ''
+      if args.discrete:
+        monitorOptions = ' --connect --field-grass-type=checker --port=%i'%(server_port)
+      else:
+        monitorOptions = ' --connect --port=%i'%(server_port)
       launch(monitorCommand + monitorOptions, name='monitor')
     # Launch the Trainer
     from Trainer import Trainer
@@ -210,6 +214,7 @@ def parseArgs():
                  default=False, help='Print verbose output.')
   p.add_argument('--deterministic', dest='deterministic', action='store_true',
                  default=False, help='Make environment deterministic.')
+  p.add_argument('--discrete', default=False, help='Make environment Discrete')
   args = p.parse_args()
   if args.offenseAgents not in list(range(0, 11)):
     p.error('argument --offense-agents: invalid choice: '\
