@@ -120,9 +120,9 @@ def main(args):
       monitorCommand = os.path.join(binary_dir, MONITOR_BIN)
       monitorOptions = ''
       if args.discrete:
-        monitorOptions = ' --connect --field-grass-type=checker --port=%i'%(server_port)
+        monitorOptions = ' --connect --hide-view-area --field-grass-type=checker --port=%i'%(server_port)
       else:
-        monitorOptions = ' --connect --port=%i'%(server_port)
+        monitorOptions = ' --connect --hide-view-area --port=%i'%(server_port)
       launch(monitorCommand + monitorOptions, name='monitor')
     # Launch the Trainer
     from Trainer import Trainer
